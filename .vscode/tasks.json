@@ -12,6 +12,8 @@
 				"-ggdb",
 				"-DNDEBUG",
 				"-O2",
+				"includes/funcs.cpp",
+				"includes/board.cpp",
 				"main.cpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
