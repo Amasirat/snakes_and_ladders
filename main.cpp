@@ -8,7 +8,8 @@
 
 int main()
 {
-    while(true)
+    bool program_end = false;
+    while(!program_end)
     {
         start_menu();
         int choice{num_input()};

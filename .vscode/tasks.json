@@ -13,6 +13,7 @@
 				"-DNDEBUG",
 				"-O2",
 				"includes/funcs.cpp",
+				"includes/dice.cpp",
 				"includes/board.cpp",
 				"main.cpp",
 				"-o",
