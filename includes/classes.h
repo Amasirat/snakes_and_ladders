@@ -11,11 +11,13 @@ enum Color
 class Board
 {
 public:
-    Board(int n = 10, bool direction = 1);
+    Board(bool direction = 1, int length = 10);
+    Board(int length = 10);
     ~Board();
+    void initializer();
 
 private:
-    int m_n{};
+    int m_length{};
     bool m_direction{}; //left and right are represented by false and true respectively
     int m_end_coordinates[2]{};
 };
@@ -44,4 +46,15 @@ public:
 private:
 Color m_color{};
 int m_coordinates[2];
+};
+//ladder class
+class Ladder
+{
+public:
+    Ladder();
+    ~Ladder();
+
+    void change_coordinates(Player& player);
+private:
+    int m_coordinates[2];
 };

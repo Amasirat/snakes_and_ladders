@@ -18,6 +18,7 @@ int main()
         {
             case 1:
             {
+                Board game_board{true, g_board_number};
                 break;
             }
             case 2:
