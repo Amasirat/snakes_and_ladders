@@ -9,6 +9,11 @@
 
 int main()
 {
+    Player player{red};
+
+    player.move(4);
+    player.move(6);
+    /*
     bool program_end = false;
     while(!program_end)
     {
@@ -18,7 +23,6 @@ int main()
         {
             case 1:
             {
-                Board game_board{true, g_board_number};
                 break;
             }
             case 2:
@@ -35,29 +39,6 @@ int main()
             }
             case 5:
             {
-                clrscreen();
-                settings_menu();
-                int choice{num_input()};
-                switch(choice)
-                {
-                    case 1:
-                        int board_number{num_input()};
-                        if(board_number > 25)
-                            std::cout << "number too massive for game board\n";
-                        else
-                            g_board_number = board_number;
-                        break;
-                  //  case 2:
-                  //  {
-                 //       clrscreen();
-                 //       difficulty_menu();
-                  //      break;
-                  //  }
-                }
-                break;
-            }
-            case 6:
-            {
                 program_end = true;
                 break;
             }
@@ -66,6 +47,6 @@ int main()
                 std::cin.ignore();
                 std::cout << "Input not valid\n";
         }
-    }
+    } */
     return 0;
 }

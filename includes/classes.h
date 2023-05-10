@@ -1,5 +1,7 @@
+#ifndef CLASSES_H
+#define CLASSES_H
 #include <iostream>
-//enum for the character's colors
+//enum for all possible colors for players
 enum Color
 {
     red,
@@ -7,20 +9,59 @@ enum Color
     blue,
     yellow
 };
-//class for the games Board
+//coordinate struct for entire program
+struct Coordinate
+{
+    int x;
+    int y;
+};
+/////////////////////////////////////
+/////////////////////////////////////
+//Class for the Player characters
+
+///////////////////////////////
+//class for the game's Board
 class Board
 {
 public:
-    Board(bool direction = 1, int length = 10);
-    Board(int length = 10);
-    ~Board();
-    void initializer();
 
+    Board(int length = 10);
+    ~Board() = default;
+//get direction of board movement
+    static int get_dir()
+    {
+        if(direction)
+            return 1;
+        else
+            return -1;
+    }
+    static void change_dir()
+    {
+        direction = !(direction);
+    }
 private:
     int m_length{};
-    bool m_direction{}; //left and right are represented by false and true respectively
-    int m_end_coordinates[2]{};
+    Coordinate m_end;
+//left and right are represented by false and true respectively
+    static bool direction;
 };
+
+class Player
+{
+public:
+//constructor
+    Player(Color p_color);
+//destructor
+    ~Player() = default;
+    void move(int dice);
+    void win(const Board& game_board);
+private:
+    Color m_color{};
+    Coordinate m_coordinate;
+    int m_score;
+};
+//////////////////////
+/////////////////////
 //a class outline for Dice in game
 class Dice
 {
@@ -29,32 +70,23 @@ public:
     ~Dice() = default;
 //to throw dice and return a number from 1 to m_sides
     int throw_dice();
+    void move_player(Player& player, int dice_throw);
+private:
+    int m_sides{};
+    bool sixhappened{};
+};
 
-private:
-    const int m_sides{6};
-    
-};
-//Class for the Player characters
-class Player
-{
-public:
-//constructor
-    Player(Color p_color);
-//destructor
-    ~Player();
-    void change_coordinates(int x, int y);
-private:
-Color m_color{};
-int m_coordinates[2];
-};
+////////////////////////////////////////
 //ladder class
 class Ladder
 {
 public:
     Ladder();
-    ~Ladder();
+    ~Ladder() = default;
 
-    void change_coordinates(Player& player);
+    void move(Player& player);
 private:
-    int m_coordinates[2];
+    Coordinate m_start;
+    Coordinate m_end;
 };
+#endif

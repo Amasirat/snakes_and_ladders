@@ -12,9 +12,10 @@
 				"-ggdb",
 				"-DNDEBUG",
 				"-O2",
-				"includes/funcs.cpp",
-				"includes/dice.cpp",
 				"includes/board.cpp",
+				"includes/player.cpp",
+				"includes/dice.cpp",
+				"includes/funcs.cpp",
 				"main.cpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"

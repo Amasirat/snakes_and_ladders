@@ -1,17 +1,11 @@
 #include "classes.h"
 #include <iostream>
 
-void Board::initializer()
-{
-    srand((unsigned) time(NULL));
-    m_end_coordinates[0] = rand() % m_length;
-    m_end_coordinates[1] = m_length - 1;
-}
-Board::Board(bool direction, int length) : m_length{length}, m_direction{direction}
-{
-    initializer();
-}
+bool Board::direction{true};
 Board::Board(int length) : m_length{length}
 {
-    initializer();
+    srand((unsigned) time(NULL));
+    m_end.x = rand() % m_length;
+    m_end.y = m_length - 1;
+    std::cout << m_end.x << ',' << m_end.y << '\n';
 }
