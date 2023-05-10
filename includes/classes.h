@@ -55,10 +55,18 @@ public:
     ~Player() = default;
     void move(int dice);
     void win(const Board& game_board);
+    void make_movable(int num);
+    bool is_movable() const;
+    void change_coordinates(int x, int y);
+    void show_coordinates() const;
+
+//getter
+    Coordinate get_coordinate() const;
 private:
     Color m_color{};
     Coordinate m_coordinate;
     int m_score;
+    bool sixhappened{};
 };
 //////////////////////
 /////////////////////
@@ -69,11 +77,10 @@ public:
     Dice(int sides = 6);
     ~Dice() = default;
 //to throw dice and return a number from 1 to m_sides
-    int throw_dice();
+    int throw_dice(Player& Player);
     void move_player(Player& player, int dice_throw);
 private:
     int m_sides{};
-    bool sixhappened{};
 };
 
 ////////////////////////////////////////
@@ -81,7 +88,7 @@ private:
 class Ladder
 {
 public:
-    Ladder();
+    Ladder(Coordinate start, Coordinate end);
     ~Ladder() = default;
 
     void move(Player& player);

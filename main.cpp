@@ -10,19 +10,25 @@
 int main()
 {
     Player player{red};
-
-    player.move(4);
-    player.move(6);
-    /*
-    bool program_end = false;
+    Ladder ladder1{{1,0}, {4,6}};
+    ladder1.move(player);
+    player.show_coordinates();
+    Dice dice1(6);
+    dice1.move_player(player, 10);
+    player.show_coordinates();
+   /* bool program_end = false;
     while(!program_end)
     {
+        std::cout << "____________________________SNAKE__AND__LADDERS_______________________________\n\n";
         start_menu();
         int choice{num_input()};
         switch(choice)
         {
             case 1:
             {
+                clrscreen();
+                introductory();
+                game_start(choice);
                 break;
             }
             case 2:
@@ -47,6 +53,7 @@ int main()
                 std::cin.ignore();
                 std::cout << "Input not valid\n";
         }
-    } */
+    }
+    */
     return 0;
 }
