@@ -9,15 +9,12 @@ enum Color
     blue,
     yellow
 };
-//coordinate struct for entire program
+//struct representing coordinates in the entire program
 struct Coordinate
 {
     int x;
     int y;
 };
-/////////////////////////////////////
-/////////////////////////////////////
-//Class for the Player characters
 
 ///////////////////////////////
 //class for the game's Board
@@ -46,6 +43,9 @@ private:
     static bool direction;
 };
 
+/////////////////////////////////////
+/////////////////////////////////////
+//Class for the Player characters
 class Player
 {
 public:
@@ -53,15 +53,22 @@ public:
     Player(Color p_color);
 //destructor
     ~Player() = default;
-    void move(int dice);
-    void win(const Board& game_board);
-    void make_movable(int num);
-    bool is_movable() const;
-    void change_coordinates(int x, int y);
-    void show_coordinates() const;
 
+//moving the player correctly through the board based on a number of movements
+    void move(int move_count);
+//player's win state
+    void win(const Board& game_board);
+//given the right number(== 6), it will make player be able to move
+    void make_movable(int num);
+//returns if it is possible to move player or not
+    bool is_movable() const;
+//change coordinates directly
+    void change_coordinates(int x, int y);
+//show coordinates on terminal screen in proper formatting
+    void show_coordinates() const;
 //getter
     Coordinate get_coordinate() const;
+
 private:
     Color m_color{};
     Coordinate m_coordinate;
@@ -92,6 +99,18 @@ public:
     ~Ladder() = default;
 
     void move(Player& player);
+private:
+    Coordinate m_start;
+    Coordinate m_end;
+};
+//class outline for snake in game
+class Snake
+{
+public:
+//constructor
+    Snake();
+//default destructor
+    ~Snake() = default;
 private:
     Coordinate m_start;
     Coordinate m_end;

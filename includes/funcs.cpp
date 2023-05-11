@@ -74,7 +74,23 @@ while(!stupidseg_end)
             std::cout << "Are you kidding me? take this seriously\n";
     }
 }
-
+}
+//function that displays game rules
+void rules()
+{
+    std::cout << "The rules are simple!\n";
+    std::cin.get();
+    std::cout << "This game is only played with a dice\n";
+    std::cin.get();
+    std::cout << "You can only start moving in the game once you got a six\n";
+    std::cin.get();
+    std::cout << "Your mission: get to the top of the board in one piece\n"
+    "That's easier said than done is it not?\n";
+    std::cin.get();
+    std::cout << "I'm sure you'll do well\n";
+    std::cin.get();
+    std::cout << "That was the end of the rules. Now let's get to it!\n";
+    std::cin.get();
 }
 //the main game's logic is coded here
 void game_start(int player_count)

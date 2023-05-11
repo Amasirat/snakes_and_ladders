@@ -13,15 +13,3 @@ int Dice::throw_dice(Player& player)
     player.make_movable(num);
     return num;
 }
-
-void Dice::move_player(Player& player, int dice_throw)
-{
-    if(player.is_movable())
-    {
-        player.move(dice_throw);
-    }
-    else
-    {
-        std::cout << "Player not allowed to move!\n";
-    }
-}
