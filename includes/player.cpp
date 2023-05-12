@@ -2,7 +2,7 @@
 
 #include "config.h"
 
-Player::Player(Color p_color) : m_color{p_color}, m_coordinate{1,0},
+Player::Player(Color p_color) : m_color{p_color}, m_coordinate{0,0},
 sixhappened{true}
 {}
 

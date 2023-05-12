@@ -11,10 +11,7 @@ int main()
 {
     Player player{red};
     Ladder ladder1{{1,0}, {4,6}};
-    ladder1.move(player);
-    player.show_coordinates();
-    Dice dice1(6);
-    dice1.move_player(player, 10);
+    print_board();
     player.show_coordinates();
    /* bool program_end = false;
     while(!program_end)

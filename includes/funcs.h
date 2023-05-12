@@ -9,6 +9,7 @@ int num_input();
 void introductory();
 //function that displays game rules
 void rules();
+void print_board();
 //the main game's logic is coded here
 void game_start(int player_count);
 #endif

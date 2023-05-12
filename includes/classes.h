@@ -36,6 +36,7 @@ public:
     {
         direction = !(direction);
     }
+    void print();
 private:
     int m_length{};
     Coordinate m_end;

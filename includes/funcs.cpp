@@ -92,6 +92,17 @@ void rules()
     std::cout << "That was the end of the rules. Now let's get to it!\n";
     std::cin.get();
 }
+void print_board()
+{
+    for(int j{g_board_number - 1}; j >= 0; --j)
+    {
+        for(int i{0}; i < g_board_number; ++i)
+        {
+            std::cout << "(" << i << "," << j << ")\t";
+        }
+        std::cout << '\n';
+    }
+}
 //the main game's logic is coded here
 void game_start(int player_count)
 {
