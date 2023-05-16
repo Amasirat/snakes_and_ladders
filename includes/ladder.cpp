@@ -13,7 +13,7 @@ void Ladder::move(Player& player)
     for(int i{0}; i < m_end.y; ++i)
     {
         ++y;
-        Board::change_dir();
+        player.change_dir();
     }
     player.change_coordinates(x,y);
 }

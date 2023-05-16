@@ -10,8 +10,8 @@
 int main()
 {
     Player player{red};
-    Ladder ladder1{{1,0}, {4,6}};
-    print_board();
+    player.show_coordinates();
+    player.move(5);
     player.show_coordinates();
    /* bool program_end = false;
     while(!program_end)

@@ -24,24 +24,10 @@ public:
 
     Board(int length = 10);
     ~Board() = default;
-//get direction of board movement
-    static int get_dir()
-    {
-        if(direction)
-            return 1;
-        else
-            return -1;
-    }
-    static void change_dir()
-    {
-        direction = !(direction);
-    }
     void print();
 private:
     int m_length{};
     Coordinate m_end;
-//left and right are represented by false and true respectively
-    static bool direction;
 };
 
 /////////////////////////////////////
@@ -58,7 +44,7 @@ public:
 //moving the player correctly through the board based on a number of movements
     void move(int move_count);
 //player's win state
-    void win(const Board& game_board);
+    void win() const;
 //given the right number(== 6), it will make player be able to move
     void make_movable(int num);
 //returns if it is possible to move player or not
@@ -67,14 +53,19 @@ public:
     void change_coordinates(int x, int y);
 //show coordinates on terminal screen in proper formatting
     void show_coordinates() const;
+//changes player's direction of movement
+    void change_dir();
 //getter
     Coordinate get_coordinate() const;
+    int direction() const;
 
 private:
     Color m_color{};
     Coordinate m_coordinate;
-    int m_score;
     bool sixhappened{};
+//left and right are represented by false and true respectively
+    bool m_direction{};
+    static int s_id;
 };
 //////////////////////
 /////////////////////
@@ -86,7 +77,6 @@ public:
     ~Dice() = default;
 //to throw dice and return a number from 1 to m_sides
     int throw_dice(Player& Player);
-    void move_player(Player& player, int dice_throw);
 private:
     int m_sides{};
 };
