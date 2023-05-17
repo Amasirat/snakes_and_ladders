@@ -1,7 +1,9 @@
 #include "funcs.h"
 #include "classes.h"
 #include "config.h"
+#include <bits/stdc++.h>
 #include <iostream>
+#include <vector>
 //general clearing of terminal screen
 void clrscreen()
 {
@@ -63,15 +65,21 @@ while(!stupidseg_end)
     {
         case 1:
             std::cout << "Wise choice! Let's proceed\n";
+            std::cin.get();
+            std::cin.get();
             stupidseg_end = true;
             break;
         case 2:
             std::cout << "Well, tough luck! You thought I would care enough to actually program you to be able to get out of the game?\n"
             "You're playing it anyway HAHAHAHAHAHAHAHAHAHAHAHAHAHA\n";
+            std::cin.get();
+            std::cin.get();
             stupidseg_end = true;
             break;
         default:
             std::cout << "Are you kidding me? take this seriously\n";
+            std::cin.get();
+            std::cin.get();
     }
 }
 }
@@ -92,21 +100,89 @@ void rules()
     std::cout << "That was the end of the rules. Now let's get to it!\n";
     std::cin.get();
 }
-void print_board()
-{
-    for(int j{g_board_number - 1}; j >= 0; --j)
-    {
-        for(int i{0}; i < g_board_number; ++i)
-        {
-            std::cout << "(" << i << "," << j << ")\t";
-        }
-        std::cout << '\n';
-    }
-}
 //the main game's logic is coded here
 void game_start(int player_count)
 {
     Board game_board{g_board_number};
-    Dice game_dice{g_dice_sides}; 
-    Player player1(red);
+    Dice game_dice{g_dice_sides};
+    Player player(red);
+    Snake game_snakes[g_snake_number]
+    {
+        Snake({3,1}, {4,3}), 
+        Snake({5,4}, {5,7}), 
+        Snake({9,3}, {8,9})
+    };
+    Ladder game_ladders[g_ladder_number]
+    {
+        Ladder({6,0}, {6,3}),
+        Ladder({2,3}, {1,4}),
+        Ladder({2,5}, {3,7})
+    };
+    while(true)
+    {
+        clrscreen();
+        player.show_coordinates();
+        std::cout << "Throw Dice?\n";
+        std::cout << "Press 'd' on keyboard to throw dice(Press 'e' to exit game)\n";
+        char usr_action{};
+        while(std::cin >> usr_action && (usr_action != 'd' && usr_action != 'e') || std::cin.fail())
+        {
+            std::cin.ignore();
+            std::cin.clear();
+            std::cout << "input invalid\n";
+        }
+        switch(usr_action)
+        {
+            case 'd':
+            {
+                int dice_number{game_dice.throw_dice(player)};
+                std::cout << dice_number << '\n';
+                player.move(dice_number);
+                std::cout << "You moved by " << dice_number << '\n';
+                std::cin.get();
+                std::cin.get();
+                bool is_on_snake{};
+                bool is_on_ladder{};
+                int snake_index{0};
+
+                for( ;snake_index < g_snake_number; ++snake_index)
+                {
+                    is_on_snake = game_snakes[snake_index].get_end().x == player.get_coordinate().x 
+                    && game_snakes[snake_index].get_end().y == player.get_coordinate().y;
+                }
+
+
+                if(is_on_snake)
+                {
+                    std::cout << "Oh, NO!!You got caught by a snake!\nYou lost a lot of progress!\n";
+                    game_snakes[snake_index].move_player(player);
+                    std::cin.get();
+                    std::cin.get();
+                }
+                else
+                {
+                    int ladder_index{0};
+                    for(;ladder_index < g_ladder_number; ++ladder_index)
+                    {
+                        is_on_ladder = game_ladders[ladder_index].get_start().x == player.get_coordinate().x &&
+                        game_ladders[ladder_index].get_start().y == player.get_coordinate().y;
+                    }
+                    if(is_on_ladder)
+                    {
+                        std::cout << "You found a ladder! Congratulations!\n You have moved a bit more towards your goal!\n";
+                        game_ladders[ladder_index].move(player);
+                        std::cin.get();
+                        std::cin.get();
+                    }
+                }
+                break;
+            }
+            case 'e':
+                return;
+            default:
+                std::cout << "key unsupported\n";
+                std::cin.get();
+                std::cin.get();
+        }
+    }
 }

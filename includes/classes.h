@@ -90,7 +90,18 @@ public:
     ~Ladder() = default;
 
     void move(Player& player);
+
+//getters
+    Coordinate get_start()
+    {
+        return m_start;
+    }
+    Coordinate get_end()
+    {
+        return m_end;
+    }
 private:
+    static int s_id;
     Coordinate m_start;
     Coordinate m_end;
 };
@@ -99,11 +110,18 @@ class Snake
 {
 public:
 //constructor
-    Snake();
+    Snake(Coordinate start, Coordinate end);
 //default destructor
     ~Snake() = default;
+//move player character down
+    void move_player(Player& player);
+//getters
+    Coordinate get_start() const;
+    Coordinate get_end() const;
 private:
     Coordinate m_start;
     Coordinate m_end;
+    bool m_player_vicinity{};
+    static int s_id;
 };
 #endif

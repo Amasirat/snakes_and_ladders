@@ -9,11 +9,7 @@
 
 int main()
 {
-    Player player{red};
-    player.show_coordinates();
-    player.move(5);
-    player.show_coordinates();
-   /* bool program_end = false;
+    bool program_end = false;
     while(!program_end)
     {
         std::cout << "____________________________SNAKE__AND__LADDERS_______________________________\n\n";
@@ -51,6 +47,5 @@ int main()
                 std::cout << "Input not valid\n";
         }
     }
-    */
     return 0;
 }

@@ -16,6 +16,7 @@
 				"includes/player.cpp",
 				"includes/dice.cpp",
 				"includes/ladder.cpp",
+				"includes/snake.cpp",
 				"includes/funcs.cpp",
 				"main.cpp",
 				"-o",

@@ -1,5 +1,6 @@
 #ifndef FUNCS_H
 #define FUNCS_H
+#include <vector>
 void clrscreen();
 //game's main start menu
 void start_menu();
@@ -9,7 +10,6 @@ int num_input();
 void introductory();
 //function that displays game rules
 void rules();
-void print_board();
 //the main game's logic is coded here
 void game_start(int player_count);
 #endif
