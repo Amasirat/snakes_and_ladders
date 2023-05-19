@@ -18,7 +18,8 @@ void start_menu()
 {
     std::cout << "1.New Game\n";
     std::cout << "2.Rules\n";
-    std::cout << "3.Exit\n";
+    std::cout << "3.Clear Screen\n";
+    std::cout << "4.Exit\n";
 }
 //general function to get input from user, it does not accept the number 0 or smaller
 int num_input()
@@ -51,7 +52,7 @@ std::cout << "but fret not, You shall be guided by the legendary writings of the
 std::cin.get();
 std::cout << "But that will also mean, you won't be able to see ladders or snakes while playing\n";
 std::cin.get();
-std::cout << "You will have to rely on your powerful luck to guide you! You'll throw a dice and move by that much up the word horizontally (just like any other gsnake and ladders game)\n";
+std::cout << "Read the rules to know what to do, and then begin your journey\n";
 std::cin.get();
 bool stupidseg_end = false;//short for has the stupid segment ended yet?
 while(!stupidseg_end)
@@ -91,8 +92,11 @@ void rules()
     std::cout << "You can only start moving in the game once you got a six\n";
     std::cin.get();
     std::cout << "Your mission: get to the top of the board in one piece\n"
-    "That's easier said than done is it not?\n";
+    "That's easier said than done is it not?\nYou can not see the board, much less snakes or any other obstacles\n";
     std::cin.get();
+    std::cout << "You will have to rely on your powerful luck to guide you! " 
+    "You'll throw a dice and move by that much up the board horizontally "
+    "(just like any other snake and ladders game)\n";
     std::cout << "I'm sure you'll do well\n";
     std::cin.get();
     std::cout << "That was the end of the rules. Now let's get to it!\n";
@@ -105,7 +109,7 @@ Color color_choice()
     do
     {
         std::cout << "Pick a color:\n";
-        std::cout << "1.red\n2.green\n3.yellow\n4.blue";
+        std::cout << "1.red\n2.green\n3.yellow\n4.blue\n";
         int usr_input{num_input()};
   
         switch(usr_input)

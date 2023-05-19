@@ -12,7 +12,7 @@ void Ladder::move(Player& player)
 //each loop and while doing that also change board direction with it
     int x{m_end.x};
     int y{player.get_coordinate().y};
-    while(y != m_end.y)
+    while(y != m_end.y && y < m_end.y)
     {
         ++y;
         player.change_dir();

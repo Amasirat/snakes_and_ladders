@@ -4,8 +4,9 @@
 //static vars init
 int Player::s_id{0};
 //constructor
-Player::Player(Color p_color) : m_color{p_color}, m_coordinate{0,0},
-sixhappened{false}
+Player::Player(Color p_color) : 
+m_color{p_color}, m_coordinate{9,9},
+sixhappened{true}
 {
     ++s_id;
     if(m_coordinate.y % 2 == 0)
@@ -13,32 +14,11 @@ sixhappened{false}
     else
         m_direction = false;
 }
-//get player's color
-const std::string& Player::color() const
-{
-    switch(m_color)
-    {
-        case red:
-            return "red";
-            break;
-        case blue:
-            return "blue";
-            break;
-        case yellow:
-            return "yellow";
-            break;
-        case green:
-            return "green";
-            break;
-        default:
-            return "NULL";
-    }
-}
 //win method for player
 void Player::win() const
 {
-    std::cout << color() << " has won the game! *clap* *clap*\n";
-    std::cout << "Congratulations, " << color() << "! You deserve it!\n";
+    std::cout << "Player has won the game! *clap* *clap*\n";
+    std::cout << "Congratulations! You deserve it!\n";
     std::cin.get();
     std::cin.get();    
 }
@@ -58,14 +38,35 @@ void Player::move(int move_count)
 {
     if(sixhappened)
     {
-        if(m_coordinate.y == g_board_number - 1 && (m_coordinate.x - move_count < 0 || m_coordinate.x + move_count > 9))
+        if(m_coordinate.y == g_board_number - 1)
         {
-            std::cout << "Oooooooh!!!You were so close, "
-            "but the dice number was too big! A shame really! Try Again\n";
-            return;
+            if(m_direction)
+            {
+                if(m_coordinate.x + move_count > 9)
+                {
+                    std::cout << "Oooooooh!!!You were so close, "
+                    "but the dice number was too big! A shame really! Try Again\n";
+                    return;
+                }
+            }
+            else
+            {
+                if(m_coordinate.x - move_count < 0)
+                {
+                    std::cout << "Oooooooh!!!You were so close, "
+                    "but the dice number was too big! A shame really! Try Again\n";
+                    return;
+                }
+            }
         }
-        else
-        {
+        // if(m_coordinate.y == g_board_number - 1 && (m_coordinate.x - move_count < 0 || m_coordinate.x + move_count > 9))
+        // {
+        //     std::cout << "Oooooooh!!!You were so close, "
+        //  "but the dice number was too big! A shame really! Try Again\n";
+        //     return;
+        // }
+      
+      
             int dice_number{move_count};
             while(m_coordinate.y < g_board_number)
             {
@@ -91,10 +92,7 @@ void Player::move(int move_count)
                     change_dir();
                     --move_count;
                 }
-            }
-
-        }
-          
+            }     
     }
     else
         std::cout << "You are not allowed to move, You still haven't gotten a six, you poor thing\n";

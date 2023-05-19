@@ -25,8 +25,6 @@ public:
     Player(Color p_color);
 //destructor
     ~Player() = default;
-//get player's color
-    const std::string& color() const;
 //moving the player correctly through the board based on a number of movements
     void move(int move_count);
 //player's win state

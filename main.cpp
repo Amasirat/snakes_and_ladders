@@ -32,6 +32,11 @@ int main()
             }
             case 3:
             {
+                clrscreen();
+                break;
+            }
+            case 4:
+            {
                 program_end = true;
                 break;
             }
