@@ -15,21 +15,6 @@ struct Coordinate
     int x;
     int y;
 };
-
-///////////////////////////////
-//class for the game's Board
-class Board
-{
-public:
-
-    Board(int length = 10);
-    ~Board() = default;
-    void print();
-private:
-    int m_length{};
-    Coordinate m_end;
-};
-
 /////////////////////////////////////
 /////////////////////////////////////
 //Class for the Player characters
@@ -40,7 +25,8 @@ public:
     Player(Color p_color);
 //destructor
     ~Player() = default;
-
+//get player's color
+    const std::string& color() const;
 //moving the player correctly through the board based on a number of movements
     void move(int move_count);
 //player's win state
@@ -66,6 +52,20 @@ private:
 //left and right are represented by false and true respectively
     bool m_direction{};
     static int s_id;
+};
+///////////////////////////////
+//class for the game's Board
+class Board
+{
+public:
+
+    Board(int length = 10);
+    ~Board() = default;
+    //for checking if player is on end coordnates
+    bool player_is_on_end(const Player& player);
+private:
+    int m_length{};
+    Coordinate m_end;
 };
 //////////////////////
 /////////////////////
@@ -121,7 +121,6 @@ public:
 private:
     Coordinate m_start;
     Coordinate m_end;
-    bool m_player_vicinity{};
     static int s_id;
 };
 #endif

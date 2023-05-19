@@ -13,11 +13,32 @@ sixhappened{false}
     else
         m_direction = false;
 }
+//get player's color
+const std::string& Player::color() const
+{
+    switch(m_color)
+    {
+        case red:
+            return "red";
+            break;
+        case blue:
+            return "blue";
+            break;
+        case yellow:
+            return "yellow";
+            break;
+        case green:
+            return "green";
+            break;
+        default:
+            return "NULL";
+    }
+}
 //win method for player
 void Player::win() const
 {
-    std::cout << "Player " << s_id << " has won the game! *clap* *clap*\n";
-    std::cout << "Congratulations, Player " << s_id << "! You deserve it!\n";
+    std::cout << color() << " has won the game! *clap* *clap*\n";
+    std::cout << "Congratulations, " << color() << "! You deserve it!\n";
     std::cin.get();
     std::cin.get();    
 }
@@ -37,13 +58,15 @@ void Player::move(int move_count)
 {
     if(sixhappened)
     {
-        if(m_coordinate.y == g_board_number - 1 && (m_coordinate.x - move_count < -1 || m_coordinate.x + move_count > 10))
+        if(m_coordinate.y == g_board_number - 1 && (m_coordinate.x - move_count < 0 || m_coordinate.x + move_count > 9))
         {
             std::cout << "Oooooooh!!!You were so close, "
             "but the dice number was too big! A shame really! Try Again\n";
             return;
         }
         else
+        {
+            int dice_number{move_count};
             while(m_coordinate.y < g_board_number)
             {
                 while(move_count > 0 && m_coordinate.x < g_board_number)
@@ -59,6 +82,7 @@ void Player::move(int move_count)
                 }
                 if(move_count == 0)
                 {
+                    std::cout << "You moved by " << dice_number << '\n';
                     return;
                 }
                 else if (m_coordinate.y < (g_board_number - 1))
@@ -67,12 +91,10 @@ void Player::move(int move_count)
                     change_dir();
                     --move_count;
                 }
-                else
-                {
-                    win();
-                    --move_count;
-                }
-            }  
+            }
+
+        }
+          
     }
     else
         std::cout << "You are not allowed to move, You still haven't gotten a six, you poor thing\n";

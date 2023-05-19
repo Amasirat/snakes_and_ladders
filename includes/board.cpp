@@ -13,14 +13,9 @@ Board::Board(int length) : m_length{length}
         m_end.x = 0;
     }
 }
-void Board::print()
+//for checking if player is on end coordnates
+bool Board::player_is_on_end(const Player& player)
 {
-    for(int j{m_length - 1}; j >= 0; --j)
-    {
-        for(int i{0}; i < m_length; ++i)
-        {
-            std::cout << "(" << i << "," << j << ")\t\t";
-        }
-        std::cout << '\n';
-    }  
+    return player.get_coordinate().x == m_end.x &&
+    player.get_coordinate().y == m_end.y;  
 }

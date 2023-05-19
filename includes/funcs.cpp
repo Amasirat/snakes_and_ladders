@@ -16,11 +16,9 @@ void clrscreen()
 //game's main start menu
 void start_menu()
 {
-    std::cout << "1.1 Player Game\n";
-    std::cout << "2.2 Player Game\n";
-    std::cout << "3.3 Player Game\n";
-    std::cout << "4.4 Player Game\n";
-    std::cout << "5.Exit\n";
+    std::cout << "1.New Game\n";
+    std::cout << "2.Rules\n";
+    std::cout << "3.Exit\n";
 }
 //general function to get input from user, it does not accept the number 0 or smaller
 int num_input()
@@ -100,12 +98,50 @@ void rules()
     std::cout << "That was the end of the rules. Now let's get to it!\n";
     std::cin.get();
 }
-//the main game's logic is coded here
-void game_start(int player_count)
+Color color_choice()
 {
+    Color player_color{};
+    bool got_enum{};
+    do
+    {
+        std::cout << "Pick a color:\n";
+        std::cout << "1.red\n2.green\n3.yellow\n4.blue";
+        int usr_input{num_input()};
+  
+        switch(usr_input)
+        {
+            case 1:
+                player_color = red;
+                got_enum = true;
+                break;
+            case 2:
+                player_color = green;
+                got_enum = true;
+                break;
+            case 3:
+                player_color = yellow;
+                got_enum = true;
+                break;
+            case 4:
+                player_color = blue;
+                got_enum = true;
+                break;
+            default:
+                std::cout << "Input invalid\n";
+                got_enum = false;
+
+        }
+    }while(!got_enum);
+
+    return player_color;
+}
+//the main game's logic is coded here
+void game_start()
+{
+
     Board game_board{g_board_number};
     Dice game_dice{g_dice_sides};
-    Player player(red);
+    Player player(color_choice());
     Snake game_snakes[g_snake_number]
     {
         Snake({3,1}, {4,3}), 
@@ -118,7 +154,11 @@ void game_start(int player_count)
         Ladder({2,3}, {1,4}),
         Ladder({2,5}, {3,7})
     };
-    while(true)
+//for determininng if the main game while loop should end or not
+    bool game_won{false}; 
+
+//main game loop  
+    while(!game_won)
     {
         clrscreen();
         player.show_coordinates();
@@ -138,19 +178,19 @@ void game_start(int player_count)
                 int dice_number{game_dice.throw_dice(player)};
                 std::cout << dice_number << '\n';
                 player.move(dice_number);
-                std::cout << "You moved by " << dice_number << '\n';
                 std::cin.get();
                 std::cin.get();
+
                 bool is_on_snake{};
                 bool is_on_ladder{};
+                bool is_on_end{};
+            //checking for snake in the position player just got in
                 int snake_index{0};
-
                 for( ;snake_index < g_snake_number; ++snake_index)
                 {
                     is_on_snake = game_snakes[snake_index].get_end().x == player.get_coordinate().x 
                     && game_snakes[snake_index].get_end().y == player.get_coordinate().y;
                 }
-
 
                 if(is_on_snake)
                 {
@@ -158,22 +198,27 @@ void game_start(int player_count)
                     game_snakes[snake_index].move_player(player);
                     std::cin.get();
                     std::cin.get();
+                    break;
                 }
-                else
+                
+                int ladder_index{0};
+                for(;ladder_index < g_ladder_number; ++ladder_index)
                 {
-                    int ladder_index{0};
-                    for(;ladder_index < g_ladder_number; ++ladder_index)
-                    {
-                        is_on_ladder = game_ladders[ladder_index].get_start().x == player.get_coordinate().x &&
-                        game_ladders[ladder_index].get_start().y == player.get_coordinate().y;
-                    }
-                    if(is_on_ladder)
-                    {
-                        std::cout << "You found a ladder! Congratulations!\n You have moved a bit more towards your goal!\n";
-                        game_ladders[ladder_index].move(player);
-                        std::cin.get();
-                        std::cin.get();
-                    }
+                    is_on_ladder = game_ladders[ladder_index].get_start().x == player.get_coordinate().x &&
+                    game_ladders[ladder_index].get_start().y == player.get_coordinate().y;
+                }
+                if(is_on_ladder)
+                {
+                    std::cout << "You found a ladder! Congratulations!\n You have moved a bit more towards your goal!\n";
+                    game_ladders[ladder_index].move(player);
+                    std::cin.get();
+                    std::cin.get();
+                }
+            //checking to see if the player is on end coordinates of board
+                if(game_board.player_is_on_end(player))
+                {
+                    player.win();
+                    game_won = true;
                 }
                 break;
             }

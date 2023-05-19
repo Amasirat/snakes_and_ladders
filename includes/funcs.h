@@ -11,5 +11,5 @@ void introductory();
 //function that displays game rules
 void rules();
 //the main game's logic is coded here
-void game_start(int player_count);
+void game_start();
 #endif

@@ -9,6 +9,7 @@
 
 int main()
 {
+    introductory();
     bool program_end = false;
     while(!program_end)
     {
@@ -20,23 +21,16 @@ int main()
             case 1:
             {
                 clrscreen();
-                introductory();
-                game_start(choice);
+                game_start();
                 break;
             }
             case 2:
             {
+                clrscreen();
+                rules();
                 break;
             }
             case 3:
-            {
-                break;
-            }
-            case 4:
-            {
-                break;
-            }
-            case 5:
             {
                 program_end = true;
                 break;
