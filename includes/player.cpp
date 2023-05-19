@@ -1,14 +1,11 @@
 #include "classes.h"
 
 #include "config.h"
-//static vars init
-int Player::s_id{0};
 //constructor
 Player::Player(Color p_color) : 
-m_color{p_color}, m_coordinate{9,9},
+m_color{p_color}, m_coordinate{0,0},
 sixhappened{true}
 {
-    ++s_id;
     if(m_coordinate.y % 2 == 0)
         m_direction = true;
     else
@@ -19,8 +16,7 @@ void Player::win() const
 {
     std::cout << "Player has won the game! *clap* *clap*\n";
     std::cout << "Congratulations! You deserve it!\n";
-    std::cin.get();
-    std::cin.get();    
+    std::cin.get(); 
 }
 //change player's direction of movement
 void Player::change_dir()
@@ -38,6 +34,7 @@ void Player::move(int move_count)
 {
     if(sixhappened)
     {
+    //accounting for when player gets close to end coordinates
         if(m_coordinate.y == g_board_number - 1)
         {
             if(m_direction)
@@ -59,40 +56,33 @@ void Player::move(int move_count)
                 }
             }
         }
-        // if(m_coordinate.y == g_board_number - 1 && (m_coordinate.x - move_count < 0 || m_coordinate.x + move_count > 9))
-        // {
-        //     std::cout << "Oooooooh!!!You were so close, "
-        //  "but the dice number was too big! A shame really! Try Again\n";
-        //     return;
-        // }
-      
-      
-            int dice_number{move_count};
-            while(m_coordinate.y < g_board_number)
+//player movement algorithm given a dice number
+        int dice_number{move_count};
+        while(m_coordinate.y < g_board_number)
+        {
+            while(move_count > 0 && m_coordinate.x < g_board_number)
             {
-                while(move_count > 0 && m_coordinate.x < g_board_number)
+                m_coordinate.x += direction();
+                --move_count;
+                if(m_coordinate.x >= g_board_number || m_coordinate.x < 0)
                 {
-                    m_coordinate.x += direction();
-                    if(m_coordinate.x >= g_board_number || m_coordinate.x < 0)
-                    {
-                        m_coordinate.x -= direction();
-                        break;
-                    }
-                    else
-                        --move_count;
+                    m_coordinate.x -= direction();
+                    break;
                 }
-                if(move_count == 0)
-                {
-                    std::cout << "You moved by " << dice_number << '\n';
-                    return;
-                }
-                else if (m_coordinate.y < (g_board_number - 1))
-                {
-                    ++m_coordinate.y;
-                    change_dir();
-                    --move_count;
-                }
-            }     
+            }
+            if(move_count == 0)
+            {
+                std::cout << "You moved by " << dice_number << '\n';
+                return;
+            }
+            else if (m_coordinate.y < (g_board_number - 1))
+            {
+                ++m_coordinate.y;
+                change_dir();
+                --move_count;
+            }
+            else{--move_count;}
+        }     
     }
     else
         std::cout << "You are not allowed to move, You still haven't gotten a six, you poor thing\n";
@@ -106,7 +96,6 @@ void Player::make_movable(int num)
     {
         sixhappened = true;
     }
-    else{return;}
 }
 bool Player::is_movable() const
 {

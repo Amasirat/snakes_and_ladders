@@ -148,15 +148,15 @@ void game_start()
     Player player(color_choice());
     Snake game_snakes[g_snake_number]
     {
-        Snake({3,1}, {4,3}), 
-        Snake({5,4}, {5,7}), 
-        Snake({9,3}, {8,9})
+        {{3,1}, {4,3}}, 
+        {{5,4}, {5,7}}, 
+        {{9,3}, {8,9}}
     };
     Ladder game_ladders[g_ladder_number]
     {
-        Ladder({6,0}, {6,3}),
-        Ladder({2,3}, {1,4}),
-        Ladder({2,5}, {3,7})
+        {{6,0}, {6,3}},
+        {{2,3}, {1,4}},
+        {{2,5}, {3,7}}
     };
 //for determininng if the main game while loop should end or not
     bool game_won{false}; 

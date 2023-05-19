@@ -49,7 +49,6 @@ private:
     bool sixhappened{};
 //left and right are represented by false and true respectively
     bool m_direction{};
-    static int s_id;
 };
 ///////////////////////////////
 //class for the game's Board
